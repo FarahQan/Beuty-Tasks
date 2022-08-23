@@ -2,9 +2,7 @@
 
 ---
 
-### We are deployed on 
-
-[project url here]
+### We are deployed on <a href="https://beutycolor.netlify.app/">Link</a>
 
 ---
 
