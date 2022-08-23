@@ -1,0 +1,24 @@
+{
+  "name": "beuty-cards",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FarahQan/Beuty-Cards.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FarahQan/Beuty-Cards/issues"
+  },
+  "homepage": "https://github.com/FarahQan/Beuty-Cards#readme",
+  "dependencies": {
+    "hex-color-to-color-name": "^1.0.2"
+  }
+}
