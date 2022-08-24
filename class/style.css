@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --royalBlue: #4169e1;
+  --white: #fff;
+  --paddingValue: 15px;
+  --borderRadius: 5px;
+  --minHeight: 100vh;
+}
+
+.main-container {
+  min-height: var(--minHeight);
+  display: flex;
+  flex-direction: column;
+  background-color: wheat;
+  cursor: default;
+  animation: showPage 2s ease;
+}
+
+@keyframes showPage {
+  0% {
+    opacity: 0.7;
+  }
+}
+
+.header {
+  flex: 1;
+}
+
+.nav {
+  color: var(--white);
+  padding: 10px var(--paddingValue);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: large;
+  width: 100%;
+  background-image: linear-gradient(to bottom, royalblue, steelblue);
+}
+
+.nav-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--borderRadius);
+}
+
+.main {
+  flex: 2;
+  min-height: var(--minHeight);
+  padding: var(--paddingValue);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  height: 500px;
+  width: 300px;
+  box-shadow: 0 2px 9px royalblue;
+  background-color: var(--white);
+  border-radius: var(--borderRadius);
+
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s ease;
+}
+
+.card:nth-child(even) {
+  animation: showCardEven 3s ease;
+}
+
+@keyframes showCardEven {
+  0% {
+    transform: scale(0.5) rotate(30deg);
+  }
+}
+
+.card:nth-child(odd) {
+  animation: showCardOdd 3s ease;
+}
+
+@keyframes showCardOdd {
+  0% {
+    transform: scale(0.5) rotate(-30deg);
+  }
+}
+
+.card div {
+  height: 40%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--borderRadius);
+}
+
+.card-body {
+  flex: 1;
+  padding: var(--paddingValue);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-body p {
+  font-size: larger;
+}
+
+.card-btn {
+  padding: 13px 30px;
+  margin-right: auto;
+  font-size: large;
+  background-color: var(--royalBlue);
+  border-style: none;
+  color: var(--white);
+  border-radius: var(--borderRadius);
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+.card-btn:hover {
+  transform: scale(1.03);
+}
+
+.selected {
+  background-color: red;
+}
