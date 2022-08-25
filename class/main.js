@@ -1,8 +1,19 @@
 class Colors {
   constructor() {
     this.selectedColors = [];
+    this.colors = {
+      "#92c952": "Mantis",
+      "#771796": "Seance",
+      "#24f355": "Malachite",
+      "#d32776": "Cerise",
+      "#f66b97": "Froly",
+      "#56a8c2": "Fountain Blue",
+      "#b0f7cc": "Ice Cold",
+      "#54176f": "Honey Flower",
+      "#51aa97": "Tradewind",
+      "#810b14": "Monarch",
+    };
   }
-
   checkColor = (color) => {
     return this.selectedColors.indexOf(color);
   };
@@ -76,19 +87,6 @@ class Header {
 }
 class Main {
   constructor() {
-    this.colorsHex = {
-      0: "#92c952",
-      1: "#771796",
-      2: "#24f355",
-      3: "#d32776",
-      4: "#f66b97",
-      5: "#56a8c2",
-      6: "#b0f7cc",
-      7: "#54176f",
-      8: "#51aa97",
-      9: "#810b14",
-    };
-
     this.main = document.createElement("main");
     this.main.classList = "main";
   }
@@ -106,48 +104,33 @@ class Main {
 
   createCard = (data) => {
     data.forEach((card, i) => {
-      this.main.appendChild(new Card(card.title, this.colorsHex[i]).getCard());
+      this.main.appendChild(
+        new Card(card.title, Object.keys(colorControl.colors)[i]).getCard()
+      );
     });
   };
 }
 class Card {
   constructor(title, id) {
-    this.colors = {
-      "#92c952": "Mantis",
-      "#771796": "Seance",
-      "#24f355": "Malachite",
-      "#d32776": "Cerise",
-      "#f66b97": "Froly",
-      "#56a8c2": "Fountain Blue",
-      "#b0f7cc": "Ice Cold",
-      "#54176f": "Honey Flower",
-      "#51aa97": "Tradewind",
-      "#810b14": "Monarch",
-    };
-
     const cardBodyWrapper = document.createElement("section");
-    this.cardButton = document.createElement("button");
     const cardDescription = document.createElement("p");
     const cardHeader = document.createElement("div");
     const cardTitle = document.createElement("h3");
     this.card = document.createElement("div");
+    this.cardButton = document.createElement("button");
 
     cardBodyWrapper.classList = "card-body";
+    this.card.classList = "card";
     this.cardButton.classList = "card-btn";
     this.cardButton.id = id;
-    this.card.classList = "card";
 
-    this.cardButton.innerText = "Select";
     cardDescription.innerText = title;
     cardHeader.style.backgroundColor = id;
     cardTitle.innerText = title;
+    this.cardButton.innerText = "Select";
 
-    this.cardButton.addEventListener("click", (e) => {
-      this.selectColor(e);
-    });
-    this.cardButton.removeEventListener("click", (e) => {
-      this.selectColor(e);
-    });
+    this.cardButton.addEventListener("click", this.selectColor);
+    this.cardButton.removeEventListener("mouseout", this.selectColor);
 
     this.card.appendChild(cardHeader);
     cardBodyWrapper.appendChild(cardTitle);
@@ -161,13 +144,14 @@ class Card {
   };
 
   selectColor = (e) => {
+    const color = colorControl.colors[e.target.id];
+    const countMessage = colorControl.getCountMessage();
+    const isSelected = colorControl.checkColor(color);
     const navCount = document.querySelector(".nav-count");
     const navSelected = document.querySelector(".nav-selected-color");
-    const color = this.colors[e.target.id];
-    const isSelected = colorControl.checkColor(color);
     const selectedColors = colorControl.getSelectedColors();
-    const countMessage = colorControl.getCountMessage();
     const selectedMessage = colorControl.getSelectedMessage();
+
     if (isSelected == -1) {
       colorControl.addColor(color);
       navCount.innerText = `${countMessage} ${selectedColors.length}`;

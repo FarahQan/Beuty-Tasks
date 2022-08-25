@@ -5,20 +5,20 @@
 }
 
 :root {
-  --royalBlue: #4169e1;
-  --white: #fff;
-  --paddingValue: 15px;
   --borderRadius: 5px;
   --minHeight: 100vh;
+  --paddingValue: 15px;
+  --royalBlue: #4169e1;
+  --white: #fff;
 }
 
 .main-container {
-  min-height: var(--minHeight);
-  display: flex;
-  flex-direction: column;
+  animation: showPage 2s ease;
   background-color: wheat;
   cursor: default;
-  animation: showPage 2s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: var(--minHeight);
 }
 
 @keyframes showPage {
@@ -32,14 +32,14 @@
 }
 
 .nav {
+  background-image: linear-gradient(to bottom, royalblue, steelblue);
   color: var(--white);
-  padding: 10px var(--paddingValue);
   display: flex;
   flex-direction: column;
-  gap: 10px;
   font-size: large;
+  gap: 10px;
+  padding: 10px var(--paddingValue);
   width: 100%;
-  background-image: linear-gradient(to bottom, royalblue, steelblue);
 }
 
 .nav-body {
@@ -49,25 +49,24 @@
 }
 
 .main {
+  display: flex;
+  flex-wrap: wrap;
   flex: 2;
+  gap: 20px;
+  justify-content: center;
   min-height: var(--minHeight);
   padding: var(--paddingValue);
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
 }
 
 .card {
-  height: 500px;
-  width: 300px;
-  box-shadow: 0 2px 9px royalblue;
   background-color: var(--white);
   border-radius: var(--borderRadius);
-
+  box-shadow: 0 2px 9px royalblue;
   display: flex;
   flex-direction: column;
+  height: 500px;
   transition: all 0.4s ease;
+  width: 300px;
 }
 
 .card:nth-child(even) {
@@ -91,18 +90,18 @@
 }
 
 .card div {
-  height: 40%;
-  width: 100%;
-  object-fit: cover;
   border-radius: var(--borderRadius);
+  height: 40%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .card-body {
-  flex: 1;
-  padding: var(--paddingValue);
   display: flex;
   flex-direction: column;
+  flex: 1;
   justify-content: space-between;
+  padding: var(--paddingValue);
 }
 
 .card-body p {
@@ -110,15 +109,15 @@
 }
 
 .card-btn {
-  padding: 13px 30px;
-  margin-right: auto;
-  font-size: large;
   background-color: var(--royalBlue);
+  border-radius: var(--borderRadius);
   border-style: none;
   color: var(--white);
-  border-radius: var(--borderRadius);
-  transition: all 0.4s ease-in-out;
   cursor: pointer;
+  font-size: large;
+  margin-right: auto;
+  padding: 13px 30px;
+  transition: all 0.4s ease-in-out;
 }
 
 .card-btn:hover {
