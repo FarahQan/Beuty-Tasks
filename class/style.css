@@ -92,7 +92,6 @@
 .card div {
   border-radius: var(--borderRadius);
   height: 40%;
-  object-fit: cover;
   width: 100%;
 }
 
