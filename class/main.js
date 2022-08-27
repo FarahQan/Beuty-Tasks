@@ -1,3 +1,12 @@
+class Message {
+  get CountMessage() {
+    return "Count of selected cards : ";
+  }
+
+  get SelectedMessage() {
+    return "Selected colors : ";
+  }
+}
 class Colors {
   constructor() {
     this.selectedColors = [];
@@ -26,17 +35,9 @@ class Colors {
     this.selectedColors.splice(index, 1);
   };
 
-  getSelectedColors = () => {
+  get SelectedColors() {
     return this.selectedColors;
-  };
-
-  getCountMessage = () => {
-    return "Count of selected cards : ";
-  };
-
-  getSelectedMessage = () => {
-    return "Selected colors : ";
-  };
+  }
 }
 const colorControl = new Colors();
 
@@ -51,13 +52,14 @@ class MainPage {
     const main = new Main();
 
     body.appendChild(mainContainer);
-    mainContainer.appendChild(new Header().getHeader());
-    mainContainer.appendChild(main.getMain());
+    mainContainer.appendChild(new Header().Header);
+    mainContainer.appendChild(main.Main);
     main.fetchAPI();
   }
 }
-class Header {
+class Header extends Message {
   constructor() {
+    super();
     const colorCount = document.createElement("h4");
     const colorSelected = document.createElement("h4");
     const nav = document.createElement("nav");
@@ -66,12 +68,13 @@ class Header {
     this.header = document.createElement("header");
 
     colorCount.classList = "nav-count";
-    colorCount.innerText = colorControl.getCountMessage() + 0;
     colorSelected.classList = "nav-selected-color";
-    colorSelected.innerText = colorControl.getSelectedMessage() + "none";
     nav.classList = "nav";
     navBody.classList = "nav-body";
     this.header.classList = "header";
+
+    colorCount.innerText = this.CountMessage + 0;
+    colorSelected.innerText = this.SelectedMessage + "none";
     title.innerText = "Lorem Ipsum";
 
     this.header.appendChild(nav);
@@ -81,9 +84,9 @@ class Header {
     navBody.appendChild(colorSelected);
   }
 
-  getHeader = () => {
+  get Header() {
     return this.header;
-  };
+  }
 }
 class Main {
   constructor() {
@@ -91,9 +94,9 @@ class Main {
     this.main.classList = "main";
   }
 
-  getMain = () => {
+  get Main() {
     return this.main;
-  };
+  }
 
   fetchAPI = async () => {
     const response = await fetch("https://jsonplaceholder.typicode.com/photos");
@@ -105,13 +108,14 @@ class Main {
   createCard = (data) => {
     data.forEach((card, i) => {
       this.main.appendChild(
-        new Card(card.title, Object.keys(colorControl.colors)[i]).getCard()
+        new Card(card.title, Object.keys(colorControl.colors)[i]).Card
       );
     });
   };
 }
-class Card {
+class Card extends Message {
   constructor(title, id) {
+    super();
     const cardBodyWrapper = document.createElement("section");
     const cardDescription = document.createElement("p");
     const cardHeader = document.createElement("div");
@@ -139,27 +143,29 @@ class Card {
     this.card.appendChild(cardBodyWrapper);
   }
 
-  getCard = () => {
+  get Card() {
     return this.card;
-  };
+  }
 
   selectColor = (e) => {
     const color = colorControl.colors[e.target.id];
-    const countMessage = colorControl.getCountMessage();
+    const countMessage = this.CountMessage;
     const isSelected = colorControl.checkColor(color);
     const navCount = document.querySelector(".nav-count");
     const navSelected = document.querySelector(".nav-selected-color");
-    const selectedColors = colorControl.getSelectedColors();
-    const selectedMessage = colorControl.getSelectedMessage();
+    const selectedColors = colorControl.SelectedColors;
+    const selectedMessage = this.SelectedMessage;
 
     if (isSelected == -1) {
       colorControl.addColor(color);
       navCount.innerText = `${countMessage} ${selectedColors.length}`;
       this.cardButton.classList.add("selected");
+      this.card.classList.add("selectedCard");
     } else {
       colorControl.removeColor(isSelected);
       navCount.innerText = `${countMessage} ${selectedColors.length}`;
       this.cardButton.classList.remove("selected");
+      this.card.classList.remove("selectedCard");
     }
 
     if (!selectedColors.length) {
