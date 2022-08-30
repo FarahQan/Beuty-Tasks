@@ -1,0 +1,135 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --borderRadius: 5px;
+  --minHeight: 100vh;
+  --paddingValue: 0.9rem;
+  --limeGreen: #32cd32;
+  --white: #fff;
+  --green: #228b22;
+  --red: #ff0000;
+  --wheat: #f5deb3;
+}
+
+.main-container {
+  animation: showPage 2s ease;
+  background-color: var(--wheat);
+  cursor: default;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "header" "main";
+
+  min-height: var(--minHeight);
+}
+
+@keyframes showPage {
+  0% {
+    opacity: 0.7;
+  }
+}
+
+.header {
+ grid-area: header;
+}
+
+.nav {
+  background-image: linear-gradient(to right, var(--green), var(--limeGreen));
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  font-size: large;
+  gap: 0.7rem;
+  padding: 0.7rem var(--paddingValue);
+}
+
+.nav-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--borderRadius);
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(5rem,20rem));
+  gap: 1.4rem;
+  justify-content: center;
+  min-height: var(--minHeight);
+  padding: var(--paddingValue);
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: var(--borderRadius);
+  display: flex;
+  flex-direction: column;
+  height: 31rem;
+  transition: all 0.4s ease;
+}
+
+.card:nth-child(even) {
+  animation: showCardEven 3s ease;
+}
+
+@keyframes showCardEven {
+  0% {
+    transform: scale(0.5) rotate(30deg);
+  }
+}
+
+.card:nth-child(odd) {
+  animation: showCardOdd 3s ease;
+}
+
+@keyframes showCardOdd {
+  0% {
+    transform: scale(0.5) rotate(-30deg);
+  }
+}
+
+.card div {
+  border-radius: var(--borderRadius);
+  height: 15.5rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 0.93;
+  justify-content: space-between;
+  padding: var(--paddingValue);
+}
+
+.card-body p {
+  font-size: larger;
+}
+
+.card-btn {
+  background-color: var(--green);
+  border-radius: var(--borderRadius);
+  border-style: none;
+  color: var(--white);
+  cursor: pointer;
+  font-size: large;
+  margin-right: auto;
+  padding: 0.8rem 2rem;
+  box-shadow: 0 2px 7px #000;
+  transition: all 0.4s ease-in-out;
+}
+
+.card-btn:hover {
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+
+.selected {
+  background-color: var(--red);
+}
+
+.selectedCard {
+  box-shadow: 0px 5px 10px var(--limeGreen);
+}
