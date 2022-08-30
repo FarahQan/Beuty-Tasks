@@ -4,8 +4,8 @@ class MainPage {
     const mainContainer = document.createElement("div");
     const main = document.createElement("main");
     const side = new SideBar();
-    main.classList = "main";
-    mainContainer.classList.add("main-container");
+    main.classList.add("main");
+    mainContainer.classList.add("container");
     body.appendChild(mainContainer);
     mainContainer.appendChild(main);
     mainContainer.appendChild(side.sidebar);
@@ -16,12 +16,12 @@ class SideBar {
   constructor() {
     const side = document.createElement("div");
     this.sideWrapper = document.createElement("aside");
-    side.classList = "side";
-    this.sideWrapper.classList = "side-wrapper";
+    side.classList.add("side");
+    this.sideWrapper.classList.add("side-wrapper");
 
-    this.sideWrapper.addEventListener("mouseover", this.handleShowSideBar);
+    this.sideWrapper.addEventListener("mouseover", this.handleSideBar);
 
-    this.sideWrapper.addEventListener("mouseout", this.handleHideSideBar);
+    this.sideWrapper.addEventListener("mouseout", this.handleSideBar);
 
     this.sideWrapper.appendChild(side);
     new Icons(side);
@@ -31,18 +31,11 @@ class SideBar {
     return this.sideWrapper;
   }
 
-  handleShowSideBar() {
+  handleSideBar() {
     const main = document.querySelector(".main");
     const side = document.querySelector(".side");
-    main.classList.add("main-animation");
-    side.classList.add("show-side");
-  }
-
-  handleHideSideBar() {
-    const main = document.querySelector(".main");
-    const side = document.querySelector(".side");
-    main.classList.remove("main-animation");
-    side.classList.remove("show-side");
+    main.classList.toggle("main-animation");
+    side.classList.toggle("show-side");
   }
 }
 

@@ -7,9 +7,10 @@
 :root {
   --translateValue: 9rem;
   --negativeTranslateValue: -9rem;
+  --black: #000;
 }
 
-.main-container {
+.container {
   min-height: 100vh;
   overflow: hidden;
   position: relative;
@@ -33,7 +34,7 @@
 
 .side {
   align-items: center;
-  background-color: #000;
+  background-color: var(--black);
   display: flex;
   height: 100%;
   justify-content: space-between;
@@ -56,7 +57,7 @@
   height: 1.8rem;
 }
 
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 1440px) {
   .side-wrapper {
     height: 100%;
     right: 0;
@@ -65,9 +66,6 @@
   }
 
   .side {
-    align-items: center;
-    background-color: #000;
-    display: flex;
     flex-direction: column;
     gap: 4rem;
     height: 100%;
