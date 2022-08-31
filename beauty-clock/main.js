@@ -75,7 +75,7 @@ class Timer {
     let hourTransform = document.querySelector(".hour-stick");
     hourTransform.style.transform = "rotate(0.1deg)";
     setInterval(() => {
-      if (minutesCounter == 5) {
+      if (minutesCounter == 60) {
         let currentMinutesDegree = parseFloat(
           minuteTransform.style.transform.match(/[0-9.]/g).join("")
         );
@@ -87,7 +87,7 @@ class Timer {
           currentMinutesDegree ? currentMinutesDegree + 10 : 0.1
         }deg)`;
 
-        if (hoursCounter == 5) {
+        if (hoursCounter == 60) {
           hourTransform.style.transform = `rotate(${
             currentHoursDegree ? currentHoursDegree + 10 : 0.1
           }deg)`;
