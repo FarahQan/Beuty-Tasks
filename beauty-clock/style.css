@@ -1,0 +1,121 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --gray: rgb(56, 56, 56);
+  --orangeRed: #ff4500;
+  --royalblue: #4169e1;
+}
+
+.container {
+  display: grid;
+  grid-template-areas: ". head ." ". midScreen ." ". bottom .";
+  grid-template-columns: minmax(15px, 1fr) minmax(200px, 400px) minmax(
+      15px,
+      1fr
+    );
+  grid-template-rows: 1fr 1fr 1fr;
+  height: 100vh;
+  width: 100%;
+}
+
+.main {
+  align-items: center;
+  border-radius: 50%;
+  border: 10px solid var(--royalblue);
+  background-color: var(--gray);
+  color: white;
+  box-shadow: 0px 2px 9px var(--gray);
+  display: grid;
+  grid-area: midScreen;
+  grid-template-areas: ". number12 ." "number9 mid number3" ". number6 .";
+  grid-template-columns: minmax(50px, 100px) minmax(100px, 100%) minmax(
+      50px,
+      100px
+    );
+  font-size: x-large;
+  justify-items: center;
+}
+
+.number12 {
+  grid-area: number12;
+  padding: 20px 0;
+}
+
+.number6 {
+  grid-area: number6;
+  padding: 20px 0;
+}
+
+.number9 {
+  grid-area: number9;
+}
+.number3 {
+  grid-area: number3;
+}
+
+.components-wrapper {
+  display: grid;
+  grid-area: mid;
+  grid-template-areas: ". minutesStick ." ". midDot hoursStick" ". pointer .";
+  grid-template-columns: minmax(100px, 200px) 1rem minmax(100px, 200px);
+  grid-template-rows: 1fr 1rem 1fr;
+}
+
+.dot {
+  background-color: var(--orangeRed);
+  border-radius: 50%;
+  grid-area: midDot;
+  height: 1rem;
+  width: 1rem;
+  z-index: 1;
+}
+
+.stick {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.minute-stick {
+  grid-area: minutesStick;
+  height: 13vh;
+  justify-self: center;
+  margin-bottom: -7px;
+  transform-origin: bottom;
+  transform: rotate(0deg);
+  width: 7px;
+}
+
+.hour-stick {
+  align-self: flex-end;
+  grid-column: minutesStick;
+  grid-row: minutesStick;
+  height: 7vh;
+  justify-self: center;
+  margin-bottom: -7px;
+  transform-origin: bottom;
+  transform: rotate(0deg);
+  width: 7px;
+}
+
+.pointer-stick {
+  align-self: flex-end;
+  animation: ticking 60s infinite linear;
+  background-color: var(--orangeRed);
+  grid-column: minutesStick;
+  grid-row: minutesStick;
+  height: 80%;
+  justify-self: center;
+  margin-bottom: -7px;
+  transform-origin: bottom;
+  width: 4px;
+}
+
+@keyframes ticking {
+  100% {
+    transform: rotate(360deg);
+  }
+}
