@@ -45,8 +45,6 @@ class ClockComponents {
       componentsWrapper.appendChild(this.createClockComponents(el));
       if (i == components.length - 1) {
         new Timer();
-        // // console.log(el);
-        // console.log(document.querySelector(".dot"));
       }
     });
   }
