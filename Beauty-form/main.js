@@ -410,7 +410,7 @@ class RegisterForm {
     this.#registerForm.classList.add("hide-form");
   };
 
-  #submitForm(e) {
+  #submitForm = (e) => {
     e.preventDefault();
     const country = document.querySelector(".country-default-option");
     const gender = document.querySelector(".selected-gender");
@@ -446,7 +446,7 @@ class RegisterForm {
       UsersStorage.addToLocalStorage(newUser);
       this.#clearFields();
     }
-  }
+  };
 }
 
 class Validation {
