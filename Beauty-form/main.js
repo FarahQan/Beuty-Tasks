@@ -515,7 +515,7 @@ class Validation {
       return;
     } else {
       this.#addValidInputClass(input);
-      this.#addValidMessageClass(usernameValidationMessages);
+      this.#addValidMessageClass(usernameValidationMessage);
     }
   };
 
