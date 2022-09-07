@@ -1,1 +1,1 @@
-# Beuty-Cards
+# Beuty-dynamic-sidebar
