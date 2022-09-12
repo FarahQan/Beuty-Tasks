@@ -1,0 +1,344 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --background: #3c4db5;
+  --backgroundDark: #556cffa8;
+  --backgroundForm: #ebebeb;
+  --boxShadowColor: rgba(0, 0, 0, 0.25);
+  --gray: #888888;
+  --header: #4c4c4c;
+  --invalid: red;
+  --lightgray: #cccccc;
+  --separatorBorder: rgba(0, 0, 0, 0.28);
+  --valid: green;
+}
+
+body {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+.container {
+  cursor: default;
+  display: grid;
+  grid-template-areas: "head head head" "main main main";
+  grid-template-columns: minmax(2px, 1fr) minmax(1fr, 6fr) minmax(2px, 1fr);
+  grid-template-rows: minmax(80px, 100px) minmax(100vh, 1fr);
+  background-image: url("https://picsum.photos/seed/picsum/1200/600");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.header {
+  align-items: center;
+  background-image: linear-gradient(to top, transparent, var(--backgroundDark));
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  grid-area: head;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.nav button {
+  background-color: transparent;
+  border-style: none;
+  color: white;
+  cursor: pointer;
+  font-size: medium;
+  margin: 0 5px;
+  padding: 10px;
+  transition: all 0.2s;
+}
+
+.nav button:hover {
+  border-bottom: 3px solid var(--header);
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template-areas:
+    ". . ."
+    ". form ." ". . .";
+  padding: 10px;
+  overflow-x: hidden;
+}
+
+.login-form-area {
+  grid-template-columns: 1fr minmax(200px, 400px) 1fr;
+  grid-template-rows: minmax(40px, 70px) minmax(auto, 350px) minmax(40px, 100px);
+}
+
+.register-form-area {
+  grid-template-columns: 1fr minmax(200px, 321px) 1fr;
+  grid-template-rows: minmax(40px, 70px) minmax(auto, 0.3fr) minmax(40px, 100px);
+}
+
+@keyframes show-form {
+  0% {
+    transform: translateX(800px);
+  }
+}
+
+.register-form,
+.login-form {
+  align-items: center;
+  animation: show-form 2s ease;
+  background: var(--backgroundForm);
+  box-shadow: inset 0px 4px 4px var(--boxShadowColor);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  grid-area: form;
+  height: 100%;
+  padding-bottom: 15px;
+  padding-top: 34px;
+}
+
+.form-title {
+  align-self: center;
+  color: var(--header);
+  font-size: x-large;
+  font-style: normal;
+  font-weight: 400;
+  height: 40px;
+  line-height: 29px;
+}
+
+.separator {
+  align-self: center;
+  border: 1px solid var(--separatorBorder);
+  box-shadow: 0px 4px 4px var(--boxShadowColor);
+  margin: 10px 0;
+  width: 90%;
+}
+
+.field-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.input-wrapper {
+  align-items: center;
+  display: flex;
+  padding: 0 5px;
+}
+
+.form-input {
+  border-style: none;
+  font-size: large;
+  height: 36px;
+  padding: 10px;
+  width: 100%;
+}
+
+.input-icon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px 0 0 5px;
+  height: 39px;
+  width: 26%;
+}
+
+.password-validation-list {
+  display: block;
+  padding: 5px;
+  width: 80%;
+}
+
+.validation-message,
+.password-validation-list-item {
+  display: flex;
+  font-size: small;
+}
+
+.invalid {
+  color: var(--invalid);
+  animation: show-message 0.8s ease-out;
+}
+
+.valid {
+  color: var(--valid);
+  animation: show-message 0.8s ease-out;
+}
+
+.invalid-input {
+  border-left: none;
+  border: 2px solid var(--invalid);
+  animation: show-invalid-input 0.3s ease;
+}
+
+.valid-input {
+  border-left: none;
+  border: 2px solid var(--valid);
+}
+
+@keyframes show-invalid-input {
+  0% {
+    transform: translateY(2%);
+  }
+  20% {
+    transform: translateY(-2%);
+  }
+  40% {
+    transform: translateY(2%);
+  }
+  60% {
+    transform: translateY(-2%);
+  }
+  80% {
+    transform: translateY(2%);
+  }
+  100% {
+    transform: translateY(-2%);
+  }
+}
+
+@keyframes show-message {
+  0% {
+    opacity: 0;
+  }
+}
+.password-icon {
+  background-image: url("./assets/Password\ 1\ image.png");
+}
+
+.email-icon {
+  background-image: url("./assets/Email\ Image.png");
+}
+.username-icon {
+  background-image: url("./assets/Username\ image.png");
+}
+
+.gender-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+}
+
+.gender-selector {
+  visibility: hidden;
+}
+
+.gender-selector-label {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.gender-selector-label:before {
+  background-image: url("./assets/Checkbox\ untick.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 3px solid transparent;
+  content: "";
+  height: 25px;
+  margin-right: auto;
+  width: 25px;
+}
+
+.gender-selector-label:after {
+  border-bottom: 3px solid white;
+  border-left: 3px solid white;
+  bottom: 40%;
+  content: "";
+  height: 5px;
+  left: 10.2%;
+  opacity: 0;
+  position: absolute;
+  transform: rotate(-45deg);
+  width: 10px;
+}
+
+.gender-selector:checked + .gender-selector-label:after {
+  opacity: 1;
+}
+
+.country-selector-wrapper {
+  position: relative;
+  width: 80%;
+}
+
+.country-selector {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  font-size: larger;
+  font-weight: 400;
+  height: 36px;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.hide-form,
+.options-wrapper,
+.hide-validation-list,
+.hide-invalid-message {
+  display: none;
+}
+
+.show-options-wrapper {
+  background-color: white;
+  display: block;
+  font-size: larger;
+  font-weight: 400;
+  margin: 2px 0;
+  padding: 5px 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.country-default-option {
+  color: var(--gray);
+}
+
+.option {
+  color: black;
+  padding: 5px;
+}
+
+.option:hover {
+  background-color: var(--lightgray);
+}
+
+.selected {
+  color: black;
+}
+
+.register-form-bottom-wrapper {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 90%;
+}
+
+.form-btn {
+  background-color: var(--background);
+  border-radius: 4px;
+  border-style: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-size: medium;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 17px;
+  padding: 9px 20px;
+  transition: all 0.2s;
+}
+
+.form-btn:hover {
+  opacity: 0.9;
+  scale: 1.03;
+}
