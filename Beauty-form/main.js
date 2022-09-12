@@ -1,36 +1,27 @@
 class UsersInStorage {
   #users;
   constructor() {
-    this.#users = JSON.parse(localStorage.getItem("Users")) || [];
+    this.#users = JSON.parse(localStorage.getItem("Users")) || {};
   }
 
   addToLocalStorage(data) {
-    this.#users.push(data);
+    this.#users[data.email] = data;
     localStorage.setItem("Users", JSON.stringify(this.#users));
     registerForm.hideForm();
     loginForm.showForm();
   }
 
   checkUserByEmail(email) {
-    const isExist = this.#users.filter((el) => {
-      return el.email === email;
-    });
-    return isExist;
+    if (!this.#users[email]) {
+      return { valid: true };
+    }
+    return { valid: false, user: this.#users[email] };
   }
 
-  isUserInStorage = (data) => {
-    const checkUser = this.checkUserByEmail(data);
-    if (checkUser.length) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  checkUserForLogin = (data) => {
-    const isUserExist = this.checkUserByEmail(data.email);
-    if (isUserExist.length) {
-      if (isUserExist[0].password === data.password) {
+  checkUserForLogin = ({ email, password }) => {
+    const isUserExist = this.checkUserByEmail(email);
+    if (!isUserExist.valid) {
+      if (isUserExist.user.password === password) {
         return true;
       } else {
         return false;
@@ -44,8 +35,10 @@ class UsersInStorage {
 class PageUI {
   constructor() {
     const body = getDOMElement("body");
-    const container = createUIElement("container", "div");
-    const main = createUIElement("main", "main");
+    elementCreationObject = { classList: "container", element: "div" };
+    const container = createUIElement(elementCreationObject);
+    elementCreationObject = { classList: "main", element: "main" };
+    const main = createUIElement(elementCreationObject);
 
     body.appendChild(container);
     container.append(new Header().createHeader, main);
@@ -56,19 +49,37 @@ class Header {
   #nav;
   #header;
   constructor() {
-    const title = createUIElement("title", "h1", "", "Beauty Form");
-    this.#header = createUIElement("header", "header");
+    elementCreationObject = {
+      classList: "title",
+      element: "h1",
+      text: "Beauty Form",
+    };
+    const title = createUIElement(elementCreationObject);
+    elementCreationObject = {
+      classList: "header",
+      element: "header",
+    };
+    this.#header = createUIElement(elementCreationObject);
 
     this.#header.appendChild(title);
     this.#createNavbar();
   }
 
   #createNavbar = () => {
-    this.#nav = createUIElement("nav", "nav");
+    elementCreationObject = {
+      classList: "nav",
+      element: "nav",
+    };
+    this.#nav = createUIElement(elementCreationObject);
     const buttons = { Login: "login-btn", Register: "register-btn" };
 
     for (const key in buttons) {
-      const navBtn = createUIElement(buttons[key], "button", "", key);
+      elementCreationObject = {
+        classList: buttons[key],
+        element: "button",
+        text: key,
+      };
+      const navBtn = createUIElement(elementCreationObject);
 
       navBtn.addEventListener("click", this.#handleForms);
 
@@ -85,20 +96,28 @@ class Header {
     if (e.target.innerText === "Register") {
       registerForm.showForm();
       loginForm.hideForm();
-    } else {
-      loginForm.showForm();
-      registerForm.hideForm();
+      return;
     }
+    loginForm.showForm();
+    registerForm.hideForm();
   };
 }
 
 class Form {
-  constructor(className, formName, addedMainClass, removedMainClass) {
-    this.Form = createUIElement(className, "form");
+  constructor({ className, formName, addedMainClass, removedMainClass }) {
+    elementCreationObject = {
+      classList: className,
+      element: "form",
+    };
+    this.Form = createUIElement(elementCreationObject);
     this.addedMainClass = addedMainClass;
     this.removedMainClass = removedMainClass;
 
-    createFormHeader(this.Form, formName);
+    elementCreationObject = {
+      text: formName,
+      element: this.Form,
+    };
+    createFormHeader(elementCreationObject);
 
     this.formInputs = new FormInputs(this.Form);
 
@@ -125,20 +144,26 @@ class Form {
 
 class LoginForm extends Form {
   constructor() {
-    super("login-form", "Login", "login-form-area", "register-form-area");
+    objectForSuper = {
+      className: "login-form",
+      formName: "Login",
+      addedMainClass: "login-form-area",
+      removedMainClass: "register-form-area",
+    };
+    super(objectForSuper);
     this.hideForm();
     this.formInputs.createLoginInputs();
     this.createFormBottom();
     this.Form.addEventListener("submit", this.submitForm);
   }
   createFormBottom = () => {
-    const submitBtn = createUIElement(
-      "form-btn",
-      "button",
-      "",
-      "Login",
-      "submit"
-    );
+    elementCreationObject = {
+      classList: "form-btn",
+      element: "button",
+      text: "Login",
+      type: "submit",
+    };
+    const submitBtn = createUIElement(elementCreationObject);
     this.Form.appendChild(submitBtn);
   };
 
@@ -150,12 +175,13 @@ class LoginForm extends Form {
 
 class RegisterForm extends Form {
   constructor() {
-    super(
-      "register-form",
-      "Registration",
-      "register-form-area",
-      "login-form-area"
-    );
+    objectForSuper = {
+      className: "register-form",
+      formName: "Registration",
+      addedMainClass: "register-form-area",
+      removedMainClass: "login-form-area",
+    };
+    super(objectForSuper);
     this.showForm();
     this.formInputs.createRegisterInputs();
     this.createFormBottom();
@@ -205,23 +231,25 @@ class RegisterForm extends Form {
   };
 
   createFormBottom = () => {
-    const submitBtn = createUIElement(
-      "form-btn",
-      "button",
-      "",
-      "Register",
-      "submit"
-    );
+    elementCreationObject = {
+      classList: "form-btn",
+      element: "button",
+      text: "Register",
+      type: "submit",
+    };
+    const submitBtn = createUIElement(elementCreationObject);
+    elementCreationObject = {
+      classList: "register-form-bottom-wrapper",
+      element: "div",
+    };
+    const registerFormBottomWrapper = createUIElement(elementCreationObject);
 
-    const registerFormBottomWrapper = createUIElement(
-      "register-form-bottom-wrapper",
-      "div"
-    );
-    const terms = createUIElement(
-      "",
-      "img",
-      "./assets/Terms and Conditions.png"
-    );
+    elementCreationObject = {
+      element: "img",
+      src: "./assets/Terms and Conditions.png",
+    };
+
+    const terms = createUIElement(elementCreationObject);
     this.Form.appendChild(registerFormBottomWrapper);
     registerFormBottomWrapper.append(terms, submitBtn);
   };
@@ -297,21 +325,17 @@ class Validation {
 
   checkRegistrationEmail = (input) => {
     const emailValidationMessage = getDOMElement(".email");
-    const isUserInStorage = UsersStorage.isUserInStorage(input.value);
-    const isValid = this.#checkInputValue(
-      input,
-      /^[\w\.-]+@[\w-]+\.[\w-]{2,3}/g
-    );
-    if (isUserInStorage || !isValid) {
+    const isUserInStorage = UsersStorage.checkUserByEmail(input.value);
+    const isValid = this.#checkInputValue(input, regex.email);
+    if (!isUserInStorage.valid || !isValid) {
       this.#addInvalidMessageClass(emailValidationMessage);
       this.#addInvalidInputClass(input);
 
-      if (isUserInStorage) {
+      if (!isUserInStorage.valid) {
         emailValidationMessage.innerText = emailValidationMessages.exist;
-      } else {
-        emailValidationMessage.innerText = emailValidationMessages.invalid;
+        return;
       }
-      return;
+      emailValidationMessage.innerText = emailValidationMessages.invalid;
     } else {
       this.#addValidMessageClass(emailValidationMessage);
       this.#addValidInputClass(input);
@@ -323,8 +347,8 @@ class Validation {
     let inputValue;
     let firstChar;
     if (input.value) {
-      inputValue = this.#checkInputValue(input, /[A-Z]/g);
-      firstChar = input.value[0].match(/[^A-Za-z]/g);
+      inputValue = this.#checkInputValue(input, regex.capital);
+      firstChar = input.value[0].match(regex.allCharsExceptAlphabet);
     }
 
     if (
@@ -365,10 +389,10 @@ class Validation {
       validationList.classList.remove("hide-validation-list");
     }
 
-    const checkCapital = this.#checkInputValue(input, /[A-Z]/g);
-    const checkSmall = this.#checkInputValue(input, /[a-z]/g);
-    const checkNumber = this.#checkInputValue(input, /[0-9]/g);
-    const checkSpecial = this.#checkInputValue(input, /\W/g);
+    const checkCapital = this.#checkInputValue(input, regex.capital);
+    const checkSmall = this.#checkInputValue(input, regex.small);
+    const checkNumber = this.#checkInputValue(input, regex.number);
+    const checkSpecial = this.#checkInputValue(input, regex.specialChar);
 
     if (!checkCapital || !checkSmall || !checkNumber || !checkSpecial) {
       this.#addInvalidInputClass(input);
@@ -449,11 +473,10 @@ class Validation {
       loginValidationMessage.innerText = loginValidationMessages.invalid;
       this.#invalidMessage(loginValidationMessage);
       return false;
-    } else {
-      this.#validMessage(loginValidationMessage);
-      loginValidationMessage.innerText = loginValidationMessages.valid;
-      return true;
     }
+    this.#validMessage(loginValidationMessage);
+    loginValidationMessage.innerText = loginValidationMessages.valid;
+    return true;
   };
 
   #invalidMessage = (message) => {

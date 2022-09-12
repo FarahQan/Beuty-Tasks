@@ -5,6 +5,14 @@ const emailValidationMessages = {
   invalid: "Enter a valid email",
 };
 
+let elementCreationObject = {
+  classList: "",
+  element: "",
+  src: "",
+  text: "",
+  type: "",
+};
+
 const genders = [
   createInputs(
     "",
@@ -50,6 +58,14 @@ const loginValidationMessages = {
   invalid: "Check email or password",
   valid: "Valid login credentials",
 };
+
+let objectForSuper = {
+  className: "",
+  formName: "",
+  addedMainClass: "",
+  removedMainClass: "",
+};
+
 const passwordValidationMessages = {
   capitalChar: "Password Should contain Capital character",
   smallChar: "Password Should contain small character",
@@ -93,4 +109,13 @@ const usernameValidationMessages = {
   smallLetter: "Username should be small letter",
   startChar: "username should start with character",
   invalid: "Enter a valid username",
+};
+
+const regex = {
+  email: /^[\w\.-]+@[\w-]+\.[\w-]{2,3}/g,
+  capital: /[A-Z]/g,
+  allCharsExceptAlphabet: /[^A-Za-z]/g,
+  small: /[a-z]/g,
+  numbers: /[0-9]/g,
+  specialChar: /\W/g,
 };

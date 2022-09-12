@@ -28,7 +28,13 @@ const createInputs = (
   };
 };
 
-const createUIElement = (classList, element, src = "", text = "", type = "") => {
+const createUIElement = ({
+  classList,
+  element,
+  src = "",
+  text = "",
+  type = "",
+}) => {
   const createdItem = document.createElement(element);
   if (classList) {
     createdItem.classList.add(classList);
@@ -45,20 +51,29 @@ const createUIElement = (classList, element, src = "", text = "", type = "") => 
   return createdItem;
 };
 
-const createFormHeader = (form, formTitle) => {
-  const title = createUIElement("form-title", "h5", "", formTitle);
-  const separator = createUIElement("separator", "div");
-  form.append(title, separator);
+const createFormHeader = ({ element, text }) => {
+  elementCreationObject = {
+    classList: "form-title",
+    element: "h5",
+    text,
+  };
+  const title = createUIElement(elementCreationObject);
+  elementCreationObject = {
+    classList: "separator",
+    element: "div",
+  };
+  const separator = createUIElement(elementCreationObject);
+  element.append(title, separator);
 };
 
 const createPasswordValidationMessages = (list) => {
   for (const key in passwordValidationMessages) {
-    const passwordValidItem = createUIElement(
-      key,
-      "li",
-      "",
-      passwordValidationMessages[key]
-    );
+    elementCreationObject = {
+      classList: key,
+      element: "li",
+      text: passwordValidationMessages[key],
+    };
+    const passwordValidItem = createUIElement(elementCreationObject);
 
     passwordValidItem.classList.add("password-validation-list-item");
     list.appendChild(passwordValidItem);
@@ -73,10 +88,21 @@ class FormInputs {
 
   createRegisterInputs = () => {
     registerInputs.forEach((el) => {
-      const fieldWrapper = createUIElement("field-wrapper", "div");
-      const input = createUIElement(el.inputClass, "input", "", "", el.type);
-      const inputIcon = createUIElement(el.iconClass, "div");
-      const inputWrapper = createUIElement("input-wrapper", "div");
+      elementCreationObject = { classList: "field-wrapper", element: "div" };
+      const fieldWrapper = createUIElement(elementCreationObject);
+
+      elementCreationObject = {
+        classList: el.inputClass,
+        element: "input",
+        type: el.type,
+      };
+      const input = createUIElement(elementCreationObject);
+
+      elementCreationObject = { classList: el.iconClass, element: "div" };
+      const inputIcon = createUIElement(elementCreationObject);
+
+      elementCreationObject = { classList: "input-wrapper", element: "div" };
+      const inputWrapper = createUIElement(elementCreationObject);
 
       input.addEventListener("blur", () => {
         if (input.placeholder === "Email") {
@@ -103,10 +129,11 @@ class FormInputs {
       fieldWrapper.appendChild(inputWrapper);
 
       if (el.placeholder === "Password") {
-        const passwordValidationRules = createUIElement(
-          "hide-validation-list",
-          "ul"
-        );
+        elementCreationObject = {
+          classList: "hide-validation-list",
+          element: "ul",
+        };
+        const passwordValidationRules = createUIElement(elementCreationObject);
         passwordValidationRules.classList.add("hide-validation-list");
         createPasswordValidationMessages(passwordValidationRules);
         fieldWrapper.appendChild(passwordValidationRules);
@@ -116,7 +143,8 @@ class FormInputs {
           validation.checkRegistrationPassword(input);
         });
       } else {
-        const validationItem = createUIElement(el.input, "p");
+        elementCreationObject = { classList: el.input, element: "p" };
+        const validationItem = createUIElement(elementCreationObject);
         validationItem.classList.add("hide-invalid-message");
         fieldWrapper.appendChild(validationItem);
       }
@@ -125,28 +153,47 @@ class FormInputs {
   };
 
   #createCountryChoices = () => {
-    const optionsWrapper = createUIElement("options-wrapper", "div");
-    const countrySelector = createUIElement("country-selector", "div");
-    const countrySelectorArrow = createUIElement(
-      "gender-wrapper",
-      "img",
-      "./assets/Screen Shot 2022-09-01 at 1.16 1.png"
-    );
-    const countrySelectorOption = createUIElement(
-      "country-default-option",
-      "div",
-      "",
-      "Country"
-    );
-    const countrySelectorWrapper = createUIElement(
-      "country-selector-wrapper",
-      "div"
-    );
+    elementCreationObject = {
+      classList: "options-wrapper",
+      element: "div",
+    };
+    const optionsWrapper = createUIElement(elementCreationObject);
+
+    elementCreationObject = {
+      classList: "country-selector",
+      element: "div",
+    };
+    const countrySelector = createUIElement(elementCreationObject);
+
+    elementCreationObject = {
+      classList: "gender-wrapper",
+      element: "img",
+      src: "./assets/Screen Shot 2022-09-01 at 1.16 1.png",
+    };
+
+    const countrySelectorArrow = createUIElement(elementCreationObject);
+
+    elementCreationObject = {
+      classList: "country-default-option",
+      element: "div",
+      text: "Country",
+    };
+
+    const countrySelectorOption = createUIElement(elementCreationObject);
+
+    elementCreationObject = {
+      classList: "country-selector-wrapper",
+      element: "div",
+    };
+    const countrySelectorWrapper = createUIElement(elementCreationObject);
+
     this.#form.appendChild(countrySelectorWrapper);
     countrySelector.append(countrySelectorOption, countrySelectorArrow);
     countrySelectorWrapper.append(countrySelector, optionsWrapper);
     countries.forEach((el) => {
-      const country = createUIElement("option", "p", "", el);
+      elementCreationObject = { classList: "option", element: "p", text: el };
+
+      const country = createUIElement(elementCreationObject);
 
       country.addEventListener("click", this.#selectCountry);
       optionsWrapper.appendChild(country);
@@ -157,22 +204,24 @@ class FormInputs {
   };
 
   #createGenderChoices = () => {
-    const genderWrapper = createUIElement("gender-wrapper", "div");
-    genders.forEach((el) => {
-      const genderSelector = createUIElement(
-        el.inputClass,
-        "input",
-        "",
-        "",
-        el.type
-      );
+    elementCreationObject = { classList: "gender-wrapper", element: "div" };
 
-      const genderSelectorLabel = createUIElement(
-        el.labelClass,
-        "label",
-        "",
-        el.labelText
-      );
+    const genderWrapper = createUIElement(elementCreationObject);
+    genders.forEach((el) => {
+      elementCreationObject = {
+        classList: el.inputClass,
+        element: "input",
+        type: el.type,
+      };
+
+      const genderSelector = createUIElement(elementCreationObject);
+
+      elementCreationObject = {
+        classList: el.labelClass,
+        element: "label",
+        text: el.labelText,
+      };
+      const genderSelectorLabel = createUIElement(elementCreationObject);
 
       genderSelector.id = el.id;
       genderSelector.name = el.name;
@@ -210,14 +259,38 @@ class FormInputs {
   }
 
   createLoginInputs() {
-    const validationItem = createUIElement("login-validation-message", "p");
+    elementCreationObject = {
+      classList: "login-validation-message",
+      element: "p",
+    };
+    const validationItem = createUIElement(elementCreationObject);
     validationItem.classList.add("hide-invalid-message");
 
     loginInputs.forEach((el) => {
-      const fieldWrapper = createUIElement("field-wrapper", "div");
-      const input = createUIElement(el.inputClass, "input", "", "", el.type);
-      const inputIcon = createUIElement(el.iconClass, "div");
-      const inputWrapper = createUIElement("input-wrapper", "div");
+      elementCreationObject = {
+        classList: "field-wrapper",
+        element: "div",
+      };
+      const fieldWrapper = createUIElement(elementCreationObject);
+
+      elementCreationObject = {
+        classList: el.inputClass,
+        element: "input",
+        type: el.type,
+      };
+      const input = createUIElement(elementCreationObject);
+
+      elementCreationObject = {
+        classList: el.iconClass,
+        element: "div",
+      };
+      const inputIcon = createUIElement(elementCreationObject);
+
+      elementCreationObject = {
+        classList: "input-wrapper",
+        element: "div",
+      };
+      const inputWrapper = createUIElement(elementCreationObject);
 
       input.classList.add("form-input");
       inputIcon.classList.add("input-icon");
